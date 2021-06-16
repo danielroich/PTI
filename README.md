@@ -31,7 +31,7 @@ by state-of-the-art methods. -->
 
 <a href="https://arxiv.org/abs/2106.05744"><img src="https://img.shields.io/badge/arXiv-2008.00951-b31b1b.svg"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
-Inference Notebook: <a href="https://colab.research.google.com/github/danielroich/PivotalTuning/blob/main/notebooks/inference_playground.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>  
+Inference Notebook: <a href="https://colab.research.google.com/github/danielroich/PTI/blob/main/notebooks/inference_playground.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>  
 
 <p align="center">
 <img src="docs/teaser.jpg"/>  
@@ -114,7 +114,7 @@ Example of editing code can be found at `scripts/latent_editor_wrapper.py.py`
 ## Inference Notebooks
 To help visualize the results of PTI we provide a Jupyter notebook found in `notebooks/inference_playground.ipynb`.   
 The notebook will download the pretrained models and run inference on a sample image found online or 
-on images of your choosing. It is recommended to run this in [Google Colab](https://colab.research.google.com/github/danielroich/PivotalTuning/blob/main/notebooks/inference_playground.ipynb).
+on images of your choosing. It is recommended to run this in [Google Colab](https://colab.research.google.com/github/danielroich/PTI/blob/main/notebooks/inference_playground.ipynb).
 
 The notebook demonstrates how to:
 - Invert an image using PTI
