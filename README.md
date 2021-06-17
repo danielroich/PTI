@@ -179,7 +179,7 @@ License (Apache License 2.0) https://github.com/harskish/ganspace/blob/master/LI
 This repository structure is based on [encoder4editing](https://github.com/omertov/encoder4editing) and [ReStyle](https://github.com/yuval-alaluf/restyle-encoder) repositories
 
 ## Contact
-For any inquiry please contact us at our email adresses: [Daniel Roich](danielroich@gmail.com) or [Ron Mokday](ron.mokady@gmail.com)
+For any inquiry please contact us at our email addresses: danielroich@gmail.com or ron.mokady@gmail.com
 
 
 ## Citation
