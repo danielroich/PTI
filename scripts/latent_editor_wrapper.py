@@ -5,7 +5,7 @@ from editings.latent_editor import LatentEditor
 
 class LatentEditorWrapper:
 
-    def __init__(self, G):
+    def __init__(self):
 
         self.interfacegan_directions = {'age': f'{paths_config.interfacegan_age}',
                                         'smile': f'{paths_config.interfacegan_smile}',
@@ -21,8 +21,7 @@ class LatentEditorWrapper:
             'trimmed_beard': (58, 7, 9, 7),
         }
 
-        self.latent_editor = LatentEditor(G)
-        self.G = G
+        self.latent_editor = LatentEditor()
 
     def get_single_ganspace_edits(self, start_w, factors):
         latents_to_display = []

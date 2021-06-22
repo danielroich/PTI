@@ -1,3 +1,4 @@
+import numpy as np
 from PIL import Image
 import wandb
 from configs import global_config
@@ -32,6 +33,40 @@ def plot_image(img):
     pillow_image = Image.fromarray(img[0])
     plt.imshow(pillow_image)
     plt.show()
+
+
+def save_image(name, method_type, results_dir, image, run_id):
+    image.save(f'{results_dir}/{method_type}_{name}_{run_id}.jpg')
+
+
+def save_w(w, G, name, method_type, results_dir):
+    im = get_image_from_w(w, G)
+    im = Image.fromarray(im, mode='RGB')
+    save_image(name, method_type, results_dir, im)
+
+
+def save_concat_image(base_dir, image_latents, new_inv_image_latent, new_G,
+                      old_G,
+                      file_name,
+                      extra_image=None):
+    images_to_save = []
+    if extra_image is not None:
+        images_to_save.append(extra_image)
+    for latent in image_latents:
+        images_to_save.append(get_image_from_w(latent, old_G))
+    images_to_save.append(get_image_from_w(new_inv_image_latent, new_G))
+    result_image = create_alongside_images(images_to_save)
+    result_image.save(f'{base_dir}/{file_name}.jpg')
+
+
+def save_single_image(base_dir, image_latent, G, file_name):
+    image_to_save = get_image_from_w(image_latent, G)
+    image_to_save.save(f'{base_dir}/{file_name}.jpg')
+
+
+def create_alongside_images(images):
+    res = np.concatenate([np.array(image) for image in images], axis=1)
+    return Image.fromarray(res, mode='RGB')
 
 
 def get_image_from_w(w, G):
