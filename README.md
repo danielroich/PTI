@@ -142,8 +142,8 @@ InterfaceGAN pose edit comparison between different methods. The images order is
 </p>
 
 <p align="center">
-<img src="docs/joker_original.jpg" width="250" height="250"/>  
-<img src="docs/joker_rotation.jpg" width="250" height="250"/>
+<img src="docs/tyron_original.jpg" width="220" height="220"/>  
+<img src="docs/tyron_edit.jpg" width="220" height="220"/>
 <br>
 Image per edit and image per inversion without comparison
 </br>  
