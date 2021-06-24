@@ -61,6 +61,7 @@ def save_concat_image(base_dir, image_latents, new_inv_image_latent, new_G,
 
 def save_single_image(base_dir, image_latent, G, file_name):
     image_to_save = get_image_from_w(image_latent, G)
+    image_to_save = Image.fromarray(image_to_save, mode='RGB')
     image_to_save.save(f'{base_dir}/{file_name}.jpg')
 
 
