@@ -109,7 +109,7 @@ The hyperparametrs for the inversion task can be found at  `configs/hyperparamet
 By default, we assume that all auxiliary edit directions are downloaded and saved to the directory `editings`. 
 However, you may use your own paths by changing the necessary values in `configs/path_configs.py` under "Edit directions" subsection.
 
-Example of editing code can be found at `scripts/latent_editor_wrapper.py.py`
+Example of editing code can be found at `scripts/latent_editor_wrapper.py`
 
 ## Inference Notebooks
 To help visualize the results of PTI we provide a Jupyter notebook found in `notebooks/inference_playground.ipynb`.   
@@ -123,7 +123,33 @@ The notebook demonstrates how to:
 - Compare to other inversion methods
 
 ## Evaluation
-**Coming Soon**
+Currently the repository supports qualitative evaluation for reconstruction of: PTI, SG2 (*W Space*), e4e, SG2Plus (*W+ Space*). 
+As well as editing using InterfaceGAN and GANSpace for the same inversion methods.
+To run the evaluation please see `evaluation/qualitative_edit_comparison.py`. Examples of the evaluation scripts are:
+
+<p align="center">
+<img src="docs/model_rec.jpg"/>  
+<br>
+Reconsturction comparison between different methods. The images order is: Original image, W+ inversion, e4e inversion, W inversion, PTI inversion
+</br>  
+</p>
+
+<p align="center">
+<img src="docs/stern_rotation.jpg"/>  
+<br>
+InterfaceGAN pose edit comparison between different methods. The images order is: Original, W+, e4e, W, PTI
+</br>  
+</p>
+
+<p align="center">
+<img src="docs/joker_original.jpg" width="250" height="250"/>  
+<img src="docs/joker_rotation.jpg" width="250" height="250"/>
+<br>
+Image per edit and image per inversion without comparison
+</br>  
+</p>
+
+###  Coming Soon - Quantitative evaluation and StyleCLIP qualitative evaluation
 
 ## Repository structure
 | Path | Description <img width=200>
