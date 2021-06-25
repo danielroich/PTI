@@ -48,6 +48,11 @@ are clearly out-of-domain, e.g., due to heavy makeup (bottom).
 Official Implementation of our PTI paper + code for evaluation metrics. PTI introduces an optimization mechanizem for solving the StyleGAN inversion task.
 Providing near-perfect reconstruction results while maintaining the high editing abilitis of the native StyleGAN latent space W. For more details, see <a href="https://arxiv.org/abs/2106.05744"><img src="https://img.shields.io/badge/arXiv-2008.00951-b31b1b.svg"></a>
 
+## Recent Updates
+`2021.06.25`: Adding mohawk edit using StyleCLIP+PTI in inference notebook.
+	      Updating documentation in inference notebook due to Google Drive rate limit reached.
+	      Currently, Google Drive does not allow to download the pretrined models using Colab automatically. Manual intervention might be needed 
+
 ## Getting Started
 ### Prerequisites
 - Linux or macOS
