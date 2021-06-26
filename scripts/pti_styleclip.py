@@ -1,5 +1,4 @@
 import glob
-import os
 from argparse import Namespace
 from configs import paths_config
 from models.StyleCLIP.mapper.scripts.inference import run
@@ -23,7 +22,7 @@ meta_data = {
 }
 
 
-def styleclip_edit(run_id='', use_wandb=False, edit_types = []):
+def styleclip_edit(use_multi_id_G, run_id, use_wandb, edit_types):
     images_dir = paths_config.input_data_path
     pretrained_mappers = paths_config.style_clip_pretrained_mappers
     data_dir_name = paths_config.input_data_id
@@ -55,4 +54,4 @@ def styleclip_edit(run_id='', use_wandb=False, edit_types = []):
                 "data_dir_name": data_dir_name
             }
 
-            run(Namespace(**args), run_id, image_name)
+            run(Namespace(**args), run_id, image_name, use_multi_id_G)

@@ -12,7 +12,8 @@ from models.StyleCLIP.mapper.styleclip_mapper import StyleCLIPMapper
 sys.path.append(".")
 sys.path.append("..")
 
-def run(test_opts, model_id, image_name):
+
+def run(test_opts, model_id, image_name, use_multi_id_G):
     out_path_results = os.path.join(test_opts.exp_dir, test_opts.data_dir_name)
     os.makedirs(out_path_results, exist_ok=True)
     out_path_results = os.path.join(out_path_results, test_opts.image_name)
@@ -28,7 +29,8 @@ def run(test_opts, model_id, image_name):
     net.eval()
     net.cuda()
 
-    generator_path = f'{paths_config.checkpoints_dir}/model_{model_id}_{image_name}.pt'
+    generator_type = paths_config.multi_id_model_type if use_multi_id_G else image_name
+    generator_path = f'{paths_config.checkpoints_dir}/model_{model_id}_{generator_type}.pt'
     with open(generator_path, 'rb') as f:
         new_G = torch.load(f).cuda().eval()
 
@@ -36,7 +38,7 @@ def run(test_opts, model_id, image_name):
         old_G = pickle.load(f)['G_ema'].cuda().eval()
 
     run_styleclip(net, new_G, opts, paths_config.pti_results_keyword, out_path_results, test_opts)
-    run_styleclip(net, old_G, opts, paths_config.e4e_results_keyword , out_path_results, test_opts)
+    run_styleclip(net, old_G, opts, paths_config.e4e_results_keyword, out_path_results, test_opts)
 
 
 def run_styleclip(net, G, opts, method, out_path_results, test_opts):
