@@ -6,7 +6,7 @@ from scripts.latent_creators.e4e_latent_creator import E4ELatentCreator
 from scripts.run_pti import run_PTI
 import pickle
 import torch
-from utils.models_utils import toogle_grad
+from utils.models_utils import toogle_grad, load_old_G
 
 
 class ExperimentRunner:
@@ -17,8 +17,7 @@ class ExperimentRunner:
         self.run_id = run_id
         self.sampled_ws = None
 
-        with open(paths_config.stylegan2_ada_ffhq, 'rb') as f:
-            self.old_G = pickle.load(f)['G_ema'].cuda().eval()
+        self.old_G = load_old_G()
 
         toogle_grad(self.old_G, False)
 

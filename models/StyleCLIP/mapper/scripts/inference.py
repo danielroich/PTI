@@ -6,8 +6,9 @@ import torch
 import sys
 import time
 
-from configs import paths_config
+from configs import paths_config, global_config
 from models.StyleCLIP.mapper.styleclip_mapper import StyleCLIPMapper
+from utils.models_utils import load_tuned_G, load_old_G
 
 sys.path.append(".")
 sys.path.append("..")
@@ -27,15 +28,12 @@ def run(test_opts, model_id, image_name, use_multi_id_G):
 
     net = StyleCLIPMapper(opts, test_opts.run_id)
     net.eval()
-    net.cuda()
+    net.to(global_config.device)
 
     generator_type = paths_config.multi_id_model_type if use_multi_id_G else image_name
-    generator_path = f'{paths_config.checkpoints_dir}/model_{model_id}_{generator_type}.pt'
-    with open(generator_path, 'rb') as f:
-        new_G = torch.load(f).cuda().eval()
 
-    with open(paths_config.stylegan2_ada_ffhq, 'rb') as f:
-        old_G = pickle.load(f)['G_ema'].cuda().eval()
+    new_G = load_tuned_G(model_id, generator_type)
+    old_G = load_old_G()
 
     run_styleclip(net, new_G, opts, paths_config.pti_results_keyword, out_path_results, test_opts)
     run_styleclip(net, old_G, opts, paths_config.e4e_results_keyword, out_path_results, test_opts)
@@ -74,9 +72,9 @@ def run_on_batch(inputs, net, couple_outputs=False):
     w = inputs
     with torch.no_grad():
         w_hat = w + 0.06 * net.mapper(w)
-        x_hat = net.decoder.synthesis(w_hat, noise_mode='const')
+        x_hat = net.decoder.synthesis(w_hat, noise_mode='const', force_fp32=True)
         result_batch = (x_hat, w_hat)
         if couple_outputs:
-            x = net.decoder.synthesis(w, noise_mode='const')
+            x = net.decoder.synthesis(w, noise_mode='const', force_fp32=True)
             result_batch = (x_hat, w_hat, x)
     return result_batch

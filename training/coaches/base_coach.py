@@ -13,7 +13,7 @@ from configs import global_config, paths_config, hyperparameters
 from criteria import l2_loss
 from models.e4e.psp import pSp
 from utils.log_utils import log_image_from_w
-from utils.models_utils import toogle_grad
+from utils.models_utils import toogle_grad, load_old_G
 
 
 class BaseCoach:
@@ -45,17 +45,16 @@ class BaseCoach:
     def restart_training(self):
 
         # Initialize networks
-        with open(paths_config.stylegan2_ada_ffhq, 'rb') as f:
-            self.G = pickle.load(f)['G_ema'].to(global_config.device).train()
-            toogle_grad(self.G, True)
-        with open(paths_config.stylegan2_ada_ffhq, 'rb') as f:
-            self.original_G = pickle.load(f)['G_ema'].to(global_config.device).eval()
+        self.G = load_old_G()
+        toogle_grad(self.G, True)
+
+        self.original_G = load_old_G()
 
         self.space_regulizer = Space_Regulizer(self.original_G, self.lpips_loss)
         self.optimizer = self.configure_optimizers()
 
     def get_inversion(self, w_path_dir, image_name, image):
-        embedding_dir = f'{w_path_dir}/PTI/{image_name}'
+        embedding_dir = f'{w_path_dir}/{paths_config.pti_results_keyword}/{image_name}'
         os.makedirs(embedding_dir, exist_ok=True)
 
         w_pivot = None
@@ -75,12 +74,12 @@ class BaseCoach:
             return self.w_pivots[image_name]
 
         if hyperparameters.first_inv_type == 'w+':
-            w_potential_path = f'{w_path_dir}/e4e/{image_name}/0.pt'
+            w_potential_path = f'{w_path_dir}/{paths_config.e4e_results_keyword}/{image_name}/0.pt'
         else:
-            w_potential_path = f'{w_path_dir}/PTI/{image_name}/0.pt'
+            w_potential_path = f'{w_path_dir}/{paths_config.pti_results_keyword}/{image_name}/0.pt'
         if not os.path.isfile(w_potential_path):
             return None
-        w = torch.load(w_potential_path).cuda()
+        w = torch.load(w_potential_path).to(global_config.device)
         self.w_pivots[image_name] = w
         return w
 
@@ -128,7 +127,7 @@ class BaseCoach:
         return loss, l2_loss_val, loss_lpips
 
     def forward(self, w):
-        generated_images = self.G.synthesis(w, noise_mode='const')
+        generated_images = self.G.synthesis(w, noise_mode='const', force_fp32=True)
 
         return generated_images
 

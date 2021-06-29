@@ -9,11 +9,7 @@ from utils.data_utils import make_dataset
 class ImagesDataset(Dataset):
 
     def __init__(self, source_root, source_transform=None):
-        if 'CelebA_200' in source_root:
-            self.source_paths = sorted(make_dataset(source_root),
-                                       key=lambda path: int(path[1].split('.')[0].split('/')[-1]))
-        else:
-            self.source_paths = sorted(make_dataset(source_root))
+        self.source_paths = sorted(make_dataset(source_root))
         self.source_transform = source_transform
 
     def __len__(self):
@@ -27,4 +23,3 @@ class ImagesDataset(Dataset):
             from_im = self.source_transform(from_im)
 
         return fname, from_im
-

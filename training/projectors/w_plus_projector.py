@@ -44,7 +44,7 @@ def project(
         if verbose:
             print(*args)
 
-    G = copy.deepcopy(G).eval().requires_grad_(False).to(device)  # type: ignore
+    G = copy.deepcopy(G).eval().requires_grad_(False).to(device).float() # type: ignore
 
     # Compute w stats.
     logprint(f'Computing W midpoint and stddev using {w_avg_samples} samples...')
@@ -99,7 +99,7 @@ def project(
         w_noise = torch.randn_like(w_opt) * w_noise_scale
         ws = (w_opt + w_noise)
 
-        synth_images = G.synthesis(ws, noise_mode='const')
+        synth_images = G.synthesis(ws, noise_mode='const', force_fp32=True)
 
         # Downsample image to 256x256 if it's larger than that. VGG was built for 224x224 images.
         synth_images = (synth_images + 1) * (255 / 2)
@@ -142,5 +142,4 @@ def project(
                 buf *= buf.square().mean().rsqrt()
 
     del G
-    torch.cuda.empty_cache()
     return w_opt
