@@ -20,7 +20,6 @@ class SingleIDCoach(BaseCoach):
         use_ball_holder = True
 
         for fname, image in tqdm(self.data_loader):
-            torch.cuda.empty_cache()
             image_name = fname[0]
 
             self.restart_training()
