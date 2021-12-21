@@ -70,6 +70,7 @@ Providing near-perfect reconstruction results while maintaining the high editing
 	3. pytorch
 	4. torchvision
 	5. matplotlib
+	6. dlib
 - All dependencies can be installed using *pip install* and the package name
 
 ## Pretrained Models
