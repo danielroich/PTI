@@ -1,4 +1,4 @@
-# PTI: Pivotal Tuning for Latent-based editing of Real Images
+# PTI: Pivotal Tuning for Latent-based editing of Real Images     (ACM TOG 2022)
 
 <!-- > Recently, a surge of advanced facial editing techniques have been proposed
 that leverage the generative power of a pre-trained StyleGAN. To successfully
