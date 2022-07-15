@@ -223,7 +223,8 @@ If you use this code for your research, please cite:
 @article{roich2021pivotal,
   title={Pivotal Tuning for Latent-based Editing of Real Images},
   author={Roich, Daniel and Mokady, Ron and Bermano, Amit H and Cohen-Or, Daniel},
-  journal={arXiv preprint arXiv:2106.05744},
+  publisher = {Association for Computing Machinery},
+  journal={ACM Trans. Graph.},
   year={2021}
 }
 ```
