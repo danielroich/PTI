@@ -1,1 +1,7 @@
-
+pretrained_models/e4e_ffhq_encode/archive/data/*
+__pycache__
+checkpoints/*
+embeddings/*
+img/*
+kiritori_img/*
+outputs/*
