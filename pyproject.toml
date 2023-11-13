@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "gpu"
+version = "0.1.0"
+description = ""
+authors = ["Hina39 <hiinyan3939@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+lpips = "^0.1.4"
+wandb = "^0.16.0"
+matplotlib = "<=3.8.1"
+cmake = "^3.27.7"
+dlib = "^19.24.2"
+torch = { version = "1.13.1+cu116", source = "torch_cu116" }
+torchvision = { version = "0.14.1+cu116", source = "torch_cu116" }
+ninja = "^1.11.1.1"
+
+[tool.poetry.dev-dependencies]
+
+[[tool.poetry.source]]
+name = "torch_cu116"
+url = "https://download.pytorch.org/whl/cu116"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
