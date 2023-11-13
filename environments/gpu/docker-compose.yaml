@@ -1,0 +1,26 @@
+version: "3.8"
+
+name: pti
+services:
+  core:
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['0']
+              capabilities: [gpu]
+    build:
+      args:
+        - BASE_IMAGE=nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
+        - PYTHON_VERSION=3.8
+        - UID=${HOST_UID-1000}
+        - GID=${HOST_GID-1000}
+      context: ../../
+      dockerfile: environments/Dockerfile
+    shm_size: "4gb"
+    tty: true
+    volumes:
+        - ../../:/home/challenger/pti
